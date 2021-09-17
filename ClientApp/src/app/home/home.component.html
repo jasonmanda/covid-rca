@@ -1,7 +1,7 @@
 <div class="container-fluid p-5">
   <div class=" map row" id="map" #map>
     <div data-wow-duration="2s" data-wow-delay="0.2s"
-      class="map_image col-11 col-sm-11 col-md-5 mr-1 ml-1 col-lg-5 col-xl-5 wow animate__animated animate__backInLeft"
+      class="map_image col-12 col-sm-12 col-md-6 pr-1 pl-1 col-lg-6 col-xl-6 wow animate__animated animate__backInLeft"
       style="visibility: hidden;">
       <!-- style="visibility: visible; animation-duration: 2s;animation-delay: 0.2s; animation-name: backInDown;" -->
       <svg xmlns="http://www.w3.org/2000/svg" xmlns:amcharts="http://amcharts.com/ammap"
@@ -81,12 +81,12 @@
 
       </svg>
     </div>
-    <div class="map_data col-11 col-sm-11 col-md-5 mr-1 ml-1 col-lg-5 col-xl-5 text-center" data-wow-duration="2s"
-      data-wow-delay="0.2s" #loadingDataContainer style="display: none;">
+    <div class="map_data col-12 col-sm-12 col-md-6 pr-1 pl-1 col-lg-6 col-xl-6 text-center" data-wow-duration="2s"
+      data-wow-delay="0.2s" #loadingDataContainer style="display: none;overflow: hidden;">
       <div class="mt-2" data-wow-duration="2s" data-wow-delay="0.2s" *ngIf="covid==null">
         <h1>Loading...</h1>
       </div>
-      <table class=" ctable table table-head mt-2" *ngIf="covid!=null">
+      <table class=" ctable table table-head mt-2 mb-2" *ngIf="covid!=null">
         <caption>{{covid.covid.ville}}({{covid.covid.codeVille}})</caption>
 
         <thead>
@@ -130,9 +130,13 @@
           </tr>
         </tfoot>
       </table>
+      <div style="    width: 50vh;      margin: auto;">
+        <canvas #chartPie></canvas>
+
+      </div>
     </div>
     <div data-wow-duration="2s" data-wow-delay="0.2s"
-      class="map_prefecture  col-11 col-sm-11 col-md-5 mr-1 ml-1 col-lg-5 col-xl-5 wow animate__animated animate__backInLeft"
+      class="map_prefecture  col-12 col-sm-12 col-md-6 pr-1 pl-1 col-lg-6 col-xl-6 wow animate__animated animate__backInRight"
       style="visibility: hidden;">
       <!-- style="visibility: visible; animation-duration: 2s;animation-delay: 0.2s; animation-name: backInLeft;" -->
       <ul>

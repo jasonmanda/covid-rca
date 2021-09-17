@@ -3,6 +3,9 @@ import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { Covid } from 'src/model/Covid';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
+import { Chart, registerables } from 'chart.js'
+
+Chart.register(...registerables)
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -11,8 +14,12 @@ import localeFr from '@angular/common/locales/fr';
 export class HomeComponent implements OnInit {
   @ViewChild("map", { static: true }) _map;
   @ViewChild("loadingDataContainer", { static: true }) _loadingDataContainer;
+  @ViewChild("chartPie", { static: true }) _chartPie;
+  firstTime: boolean = false;
   _baseUrl: string;
   covid: Covid;
+  context: CanvasRenderingContext2D;
+  chartPie: Chart;
 
 
   constructor(private http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
@@ -20,6 +27,7 @@ export class HomeComponent implements OnInit {
     registerLocaleData(localeFr, 'fr');
   }
   ngOnInit(): void {
+
 
 
   }
@@ -50,6 +58,23 @@ export class HomeComponent implements OnInit {
   loadByKey(id: string) {
     this.http.get<Covid>(this._baseUrl + 'covid/' + id).subscribe(result => {
       this.covid = result;
+      let datasets = [
+        {
+          label: "Covid-19",
+          borderWidth: 0,
+          backgroundColor: [
+            '#e3e3e3',
+            '#4acccd',
+            '#fcc468',
+          ],
+          data: [this.covid.covid.totalDeces, this.covid.covid.totalVaccin, this.covid.covid.totalCas]
+        }
+      ];
+      this.loadChart([
+        "Total Décès",
+        "Total Vaccin",
+        "Total Cas"
+      ], datasets)
     }, error => console.error(error));
   }
   pathEnter($event) {
@@ -89,5 +114,19 @@ export class HomeComponent implements OnInit {
   linkLeave($event) {
     $event.preventDefault()
     this.leaveZone()
+  }
+  loadChart(labels: string[], datasets: any[]) {
+    if (this.firstTime) this.chartPie.destroy();
+    else this.firstTime = true;
+    this.context = (this._chartPie.nativeElement as HTMLCanvasElement).getContext('2d');
+    this.chartPie = new Chart(this.context, {
+      type: 'doughnut',
+      data: {
+        labels: labels,
+        datasets: datasets
+      },
+
+    });
+
   }
 }
