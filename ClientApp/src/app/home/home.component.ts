@@ -3,9 +3,11 @@ import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { Covid } from 'src/model/Covid';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
-import { Chart, registerables } from 'chart.js'
+import { Chart } from 'chart.js'
+//on windows change in package.json chart.js in the last version to enable this line of code
+// import { Chart, registerables } from 'chart.js'
 
-Chart.register(...registerables)
+// Chart.register(...registerables)
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',

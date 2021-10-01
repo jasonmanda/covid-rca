@@ -23,7 +23,7 @@
     "@angular/router": "8.2.12",
     "@nguniversal/module-map-ngfactory-loader": "8.1.1",
     "bootstrap": "^4.6.0",
-    "chart.js": "^3.5.1",
+    "chart.js": "^2.9.4",
     "core-js": "^3.8.3",
     "jquery": "^3.5.1",
     "ngx-wow": "^2.0.1",

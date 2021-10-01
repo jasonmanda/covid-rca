@@ -10,4 +10,10 @@ namespace InterActiveMap.ViewModels
         public int TotalDeces{get;set;}
         public int TotalVaccin{get;set;}
     }
+        public class CovidApiResult{
+        public CovidViewModel Covid{get;set;}
+        public int TotalCas{get;set;}
+        public int TotalDeces{get;set;}
+        public int TotalVaccin{get;set;}
+    }
 }
