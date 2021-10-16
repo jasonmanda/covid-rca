@@ -12,7 +12,7 @@ namespace InterActiveMap.Controllers
     [Route("api/v1/[controller]")]
     public class CovidController : ControllerBase
     {
-     
+
         private readonly ILogger<CovidController> _logger;
         private readonly IEnumerable<CovidViewModel> ListData=new List<CovidViewModel>{
             new CovidViewModel{CodeVille="CF-BB" , Ville="Bamingui-Bangoran",TotalCas=89,TotalDeces=2,TotalVaccin=680}, 

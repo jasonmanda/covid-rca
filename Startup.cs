@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 namespace InterActiveMap
 {
@@ -21,6 +23,15 @@ namespace InterActiveMap
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddRazorPages();
+            services.AddHealthChecks().AddCheck("Fo",()=>HealthCheckResult.Unhealthy("Not w"));
+
+            services.AddAuthorization(options =>
+{
+        // options.AddPolicy("AtLeast21", policy =>
+        //     policy.Requirements.Add(new MinimumAgeRequirement(21)));
+    });
+
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -48,14 +59,15 @@ namespace InterActiveMap
             {
                 app.UseSpaStaticFiles();
             }
-
             app.UseRouting();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapHealthChecks("/healthz",new HealthCheckOptions{
+                });
+                // endpoints.MapFallbackToController("OnGet","Home");
             });
 
             app.UseSpa(spa =>
@@ -70,6 +82,8 @@ namespace InterActiveMap
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
+
         }
+
     }
 }
